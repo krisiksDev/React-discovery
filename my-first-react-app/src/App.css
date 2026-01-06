@@ -33,6 +33,83 @@
   }
 }
 
+.counter-wrap {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.counter-card {
+  width: 360px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.14);
+  padding: 26px;
+  text-align: center;
+}
+
+.counter-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+.counter-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f3f4f6;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.counter-btn:hover {
+  background: #e5e7eb;
+}
+
+.counter-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.counter-count {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: #111827; /* ✅ visible sur fond blanc */
+  min-width: 110px;
+}
+
+.counter-count.is-high {
+  color: #4f46e5; /* ✅ change si > 10 */
+}
+
+.counter-msg {
+  margin: 14px 0 10px;
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.counter-reset {
+  width: 160px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 12px;
+  background: #e5e7eb;
+  color: #111827;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.counter-reset:hover {
+  background: #d1d5db;
+}
+
+
+
 .card {
   padding: 2em;
 }

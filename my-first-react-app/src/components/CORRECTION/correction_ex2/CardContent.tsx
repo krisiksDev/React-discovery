@@ -1,0 +1,16 @@
+// 🎯 EXERCICE 3.2 - Solution: CardContent.tsx
+
+import React from "react";
+
+interface CardContentProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export const CardContent: React.FC<CardContentProps> = ({
+  children,
+  className = "",
+}) => {
+  return <div className={`p-6 ${className}`}>{children}</div>;
+};
+ 
