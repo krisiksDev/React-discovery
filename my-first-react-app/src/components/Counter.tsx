@@ -1,47 +1,40 @@
 import { useState } from "react";
 
 interface CounterProps {
-  max?: number;
+  initialValue?: number;
 }
 
-const Counter = ({ max = 20 }: CounterProps) => {
-  const [count, setCount] = useState(0);
+const Counter = ({ initialValue = 0 }: CounterProps) => {
+  const [count, setCount] = useState(initialValue);
+  const [history, setHistory] = useState<number[]>([initialValue]);
 
-  const increment = () => {
-    setCount((prev) => (prev < max ? prev + 1 : prev));
+  const updateCount = (newValue: number) => {
+    setCount(newValue);
+    setHistory([...history, newValue]);
   };
 
-  const decrement = () => {
-    setCount((prev) => (prev > 0 ? prev - 1 : 0));
-  };
-
-  const reset = () => {
-    setCount(0);
+  const undo = () => {
+    if (history.length > 1) {
+      const newHistory = history.slice(0, -1);
+      setHistory(newHistory);
+      setCount(newHistory[newHistory.length - 1]);
+    }
   };
 
   return (
     <div className="counter">
-      <div className="counter-buttons">
-        <button onClick={decrement} disabled={count === 0}>
-          ➖
-        </button>
-
-        <span className={`count ${count > 10 ? "count-high" : ""}`}>
-          {count}
-        </span>
-
-        <button onClick={increment} disabled={count === max}>
-          ➕
-        </button>
-      </div>
-
-      {count === 0 && <p className="count-msg">Le compteur est à 0</p>}
-
-      <button className="reset" onClick={reset}>
-        Reset
-      </button>
-
-      <small className="hint">Max : {max}</small>
+      <h2>Counter: {count}</h2>
+      <button onClick={() => updateCount(count + 1)}>+1</button>
+      <button onClick={() => updateCount(count - 1)}>-1</button>
+      <button onClick={() => updateCount(count + 5)}>+5</button>
+      <button onClick={() => updateCount(count - 5)}>-5</button>
+      <h3>Reset Button</h3>
+      <button onClick={() => updateCount(0)}>Reset</button>
+      <h4>Cancel</h4>
+      <button onClick={undo} disabled={history.length <= 1}>Cancel</button>
+      <p style={{ fontSize: "0.85em", color: "#666" }}>
+        Historique: {history.join("-> ")} action(s)
+      </p>
     </div>
   );
 };

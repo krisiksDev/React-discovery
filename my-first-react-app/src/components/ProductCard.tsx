@@ -1,61 +1,21 @@
-import type { Product } from "../types/Product.types";
-
-interface ProductCardProps {
-  product: Product;
-  onAdd?: (product: Product) => void;
+import Button from "./Button";
+interface ProductCard {
+  name: string;
+  price: number;
+  imageUrl: string;
+  discount: number;
 }
 
-const ProductCard = ({ product, onAdd }: ProductCardProps) => {
-  const handleAdd = () => {
-    if (!product.inStock) return;
-    onAdd?.(product);
-  };
+const ProductCard = ({name, price, imageUrl, discount}: ProductCard) => {
+  console.log(name, price, imageUrl, discount);
 
   return (
     <div className="product-card">
-      <div className="product-image-wrap">
-        <img
-          className="product-image"
-          src={product.imageUrl}
-          alt={product.name}
-        />
-
-        <span
-          className={`badge ${
-            product.inStock ? "badge-stock" : "badge-out"
-          }`}
-        >
-          {product.inStock ? "En stock" : "Rupture"}
-        </span>
-      </div>
-
-      <div className="product-body">
-        <h3 className="product-name">{product.name}</h3>
-
-        <p className="product-description">
-          {product.description}
-        </p>
-
-        <div className="product-row">
-          <div className="product-price">
-            {product.price.toFixed(2).replace(".", ",")} €
-          </div>
-
-          <span className="product-category">
-            {product.category}
-          </span>
-        </div>
-
-        <button
-          className={`product-btn ${
-            product.inStock ? "btn-primary" : "btn-disabled"
-          }`}
-          disabled={!product.inStock}
-          onClick={handleAdd}
-        >
-          {product.inStock ? "Ajouter au panier" : "Indisponible"}
-        </button>
-      </div>
+      <img src={imageUrl} alt={name} className="product-image" />
+      <h2>{name}</h2>
+      <p>Price: ${price}</p>
+      <p>Discount: {discount}%</p>
+      <Button label="Buy Now" variant="primary" onClick={() => alert(`Purchased ${name}`)} />
     </div>
   );
 };
